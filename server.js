@@ -4,7 +4,6 @@ const socketIo = require('socket.io');
 const path = require('path');
 const fs = require('fs');
 const { exec } = require('child_process');
-const { on } = require('events');
 const { setInterval } = require('timers');
 
 const DEBUG = false;
