@@ -83,4 +83,4 @@
 
 ## 更多
 - **SSL证书**：您可能已经注意到，在访问聊天网站时，会提示SSL证书问题。在插件的`pem`目录下，有`cert.pem`（证书）和`key.pem`（私钥）文件，您可以替换其中的内容以解决该问题
-- **server.exe**：您可以在插件的`turn_server`目录下找到此程序，该程序是插件默认ICE服务器的软件，由[Pion TURN的示例程序代码](https://github.com/pion/turn/tree/master/examples/turn-server/simple)]直接编译而来
+- **server.exe**：您可以在插件的`turn_server`目录下找到此程序，该程序是插件默认ICE服务器的软件，由[Pion TURN的示例程序代码](https://github.com/pion/turn/tree/master/examples/turn-server/simple)直接编译而来
