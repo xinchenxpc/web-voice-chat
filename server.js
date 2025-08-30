@@ -25,7 +25,7 @@ if (configFile.enableDefaultICEServer) {
             return;
         }
     });
-    infoLog('已启动默认TURN服务器');
+    infoLog('The default TURN server is started');
 }
 
 const credentials = {
@@ -106,6 +106,13 @@ try {
     ll.onUnload(() => {
         exec(`taskkill /pid ${child.pid} /T /F`);
     })
+
+    logger.setConsole(true);
+    if (DEBUG) {
+        logger.setLogLevel(5);
+    } else {
+        logger.setLogLevel(4);
+    }
 
 } catch (error) {
     console.error('Failed to use LSE API:', error);
@@ -207,7 +214,7 @@ io.on('connection', (socket) => {
                 socket.emit('player-volume', playerVolume);
             }, 1000);
         }
-        debugLog(`User ${userId} joined room ${roomId}`);
+        infoLog(`User ${userId} joined room ${roomId}`);
     });
 
     // 转发WebRTC信令
@@ -259,7 +266,7 @@ function disconnect(socket) {
         }
 
         socket.to(roomId).emit('user-disconnected', userId);
-        debugLog(`User ${userId} left room ${roomId}`);
+        infoLog(`User ${userId} left room ${roomId}`);
     }
 }
 
@@ -281,9 +288,9 @@ function debugLog(...args) {
 
 function infoLog(...args) {
     try {
-        log(...args);
+        logger.info(...args);
     } catch {
-        console.log(...args);
+        console.log('[INFO]',...args);
     }
 }
 
