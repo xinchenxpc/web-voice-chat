@@ -44,41 +44,6 @@ const io = socketIo(server, {
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-// 添加TURN配置接口
-app.get('/turn-config', (req, res) => {
-    let turnConfig = {};
-    if (configFile.enableDefaultICEServer) {
-        turnConfig = {
-            iceServers: [
-                {
-                    urls: `stun:localhost:${configFile.defaultICEServer.port}`
-                },
-                {
-                    urls: `turn:localhost:${configFile.defaultICEServer.port}`,
-                    username: configFile.defaultICEServer.username,
-                    credential: configFile.defaultICEServer.credential
-                }
-            ]
-        };
-    } else {
-        configFile.iceServers.forEach(server => {
-            if (server.type === "stun") {
-                turnConfig.iceServers.push({
-                    urls: `stun:${server.urls}:${server.port}`
-                });
-            }
-            if (server.type === "turn") {
-                turnConfig.iceServers.push({
-                    urls: `turn:${server.urls}:${server.port}`,
-                    username: server.username,
-                    credential: server.credential
-                });
-            }
-        });
-    }
-    res.json(turnConfig);
-});
-
 const rooms = {};
 
 let playerCode = {};
@@ -162,6 +127,42 @@ io.on('connection', (socket) => {
             // 验证失败，返回失败响应
             callback({ success: false, name: "" });
         }
+    });
+
+    // 处理TURN配置请求
+    socket.on('get-turn-config', (callback) => {
+        let turnConfig = {};
+        if (configFile.enableDefaultICEServer) {
+            turnConfig = {
+                iceServers: [
+                    {
+                        urls: `stun:localhost:${configFile.defaultICEServer.port}`
+                    },
+                    {
+                        urls: `turn:localhost:${configFile.defaultICEServer.port}`,
+                        username: configFile.defaultICEServer.username,
+                        credential: configFile.defaultICEServer.credential
+                    }
+                ]
+            };
+        } else {
+            turnConfig.iceServers = [];
+            configFile.iceServers.forEach(server => {
+                if (server.type === "stun") {
+                    turnConfig.iceServers.push({
+                        urls: `stun:${server.urls}:${server.port}`
+                    });
+                }
+                if (server.type === "turn") {
+                    turnConfig.iceServers.push({
+                        urls: `turn:${server.urls}:${server.port}`,
+                        username: server.username,
+                        credential: server.credential
+                    });
+                }
+            });
+        }
+        callback(turnConfig);
     });
 
     // 加入房间

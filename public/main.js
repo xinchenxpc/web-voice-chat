@@ -35,39 +35,33 @@ window.addEventListener('load', () => {
     }
 
     // 获取TURN配置
-    fetch('/turn-config')
-        .then(response => response.json())
-        .then(turnConfig => {
-            // 将turnConfig.iceServers中的localhost替换为document.domain
-            if (turnConfig.iceServers) {
-                turnConfig.iceServers.forEach((server, i) => {
-                    if (server.urls) {
-                        if (typeof server.urls === 'string') {
-                            turnConfig.iceServers[i].urls = server.urls.replace(/localhost/g, document.domain);
-                        } else if (Array.isArray(server.urls)) {
-                            turnConfig.iceServers[i].urls = server.urls.map(url => url.replace(/localhost/g, document.domain));
-                        }
+    socket.emit('get-turn-config', (turnConfig) => {
+        // 将turnConfig.iceServers中的localhost替换为document.domain
+        if (turnConfig.iceServers) {
+            turnConfig.iceServers.forEach((server, i) => {
+                if (server.urls) {
+                    if (typeof server.urls === 'string') {
+                        turnConfig.iceServers[i].urls = server.urls.replace(/localhost/g, document.domain);
+                    } else if (Array.isArray(server.urls)) {
+                        turnConfig.iceServers[i].urls = server.urls.map(url => url.replace(/localhost/g, document.domain));
                     }
-                });
-            }
-            config = turnConfig;
-            // 验证绑定码
-            socket.emit('validate-bindcode', bindCode, (response) => {
-                if (!response.success) {
-                    // 验证失败，清除存储并重定向到首页
-                    alert("您的绑定码无效，请重新输入！");
-                    localStorage.removeItem('bindCode');
-                    window.location.href = 'index.html';
-                    return;
                 }
-                currentUserId = response.name;
-                joinRoom();
             });
-        })
-        .catch(error => {
-            console.error('获取TURN配置失败:', error);
-            alert('无法获取连接配置，请刷新页面重试');
+        }
+        config = turnConfig;
+        // 验证绑定码
+        socket.emit('validate-bindcode', bindCode, (response) => {
+            if (!response.success) {
+                // 验证失败，清除存储并重定向到首页
+                alert("您的绑定码无效，请重新输入！");
+                localStorage.removeItem('bindCode');
+                window.location.href = 'index.html';
+                return;
+            }
+            currentUserId = response.name;
+            joinRoom();
         });
+    });
 });
 
 // 页面关闭
