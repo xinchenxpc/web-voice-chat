@@ -1,0 +1,9 @@
+{
+  "name": "WebRTC语音聊天",
+  "short_name": "语音聊天",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a2a6c",
+  "theme_color": "#4361ee",
+  "description": "基于WebRTC的多人语音聊天应用"
+}

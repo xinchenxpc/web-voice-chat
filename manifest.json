@@ -1,0 +1,13 @@
+{
+    "entry": "server.js",
+    "name": "web_voice_chat",
+    "type": "lse-nodejs",
+    "version": "1.0.0",
+    "author": "xinchenXPC",
+    "description": "Voice chat",
+    "dependencies": [
+        {
+            "name": "legacy-script-engine-nodejs"
+        }
+    ]
+}

@@ -1,0 +1,25 @@
+{
+    "iceServers": [
+        {
+            "type": "stun",
+            "urls": "localhost",
+            "port": 3478
+        },
+        {
+            "type": "turn",
+            "urls": "localhost",
+            "port": 3478,
+            "username": "self",
+            "credential": "self"
+        }
+    ],
+    "enableDefaultICEServer": true,
+    "defaultICEServer": {
+        "port": 3478,
+        "username": "self",
+        "credential": "self"
+    },
+    "webPort": 3000,
+    "enableSoundAttenuation": true,
+    "soundAttenuationFactor": 0.02
+}

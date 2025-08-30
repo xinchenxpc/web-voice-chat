@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebRTC多人语音聊天</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style_index.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>登入</h1>
+            <p class="subtitle">绑定你的游戏以开始聊天</p>
+        </header>
+    <div class="main">
+        <input type="text" id="bindcode" placeholder="请输入绑定码">
+    </div>
+    <div class="main">
+        <button id="bind">绑定</button>
+    </div>
+    </div>
+
+    <script src="adapter.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./bind.js"></script>
+</body>
+</html>
