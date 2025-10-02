@@ -47,7 +47,7 @@ header h1 {
 }
 
 /* 按钮样式 */
-#leaveBtn, #muteBtn {
+#leaveBtn, #muteBtn, .mute-player-btn {
     width: 100%;
     padding: 12px;
     background-color: #007bff;
@@ -59,7 +59,7 @@ header h1 {
     margin-top: 10px;
 }
 
-#leaveBtn:hover, #muteBtn:hover {
+#leaveBtn:hover, #muteBtn:hover, .mute-player-btn:hover {
     background-color: #0056b3;
 }
 
@@ -98,12 +98,28 @@ header h1 {
     padding: 8px 12px;
     margin: 5px 0;
     background-color: #f8f9fa;
-    border-radius: 5px;
-    border: 1px solid #e9ecef;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.player-item.self {
-    background-color: #e3f2fd;
-    border-color: #2196f3;
-    font-weight: bold;
+.player-item span {
+    flex-grow: 1;
+    text-align: left;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.mute-player-btn {
+    width: auto;
+    padding: 5px 10px;
+    font-size: 14px;
+    background-color: #ffc107;
+    color: #212529;
+    margin-top: 0px;
+}
+
+.mute-player-btn:hover {
+    background-color: #e0a800;
 }

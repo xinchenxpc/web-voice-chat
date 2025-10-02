@@ -22,6 +22,8 @@ const constraints = {
 let isMuted = false; // 是否静音
 const currentRoomId = "default";
 let currentUserId = null;
+// 屏蔽列表
+let mutedPlayers = new Set();
 
 // 页面加载
 window.addEventListener('load', () => {
@@ -111,6 +113,34 @@ leaveBtn.addEventListener('click', () => {
     // 跳转回主页
     window.location.href = 'index.html';
 });
+
+// 屏蔽玩家声音
+function togglePlayerMute(playerId) {
+    const audioElement = document.getElementById(`audio-${playerId}`);
+    if (mutedPlayers.has(playerId)) {
+        // 取消屏蔽
+        mutedPlayers.delete(playerId);
+        if (audioElement) {
+            audioElement.muted = false;
+        }
+        // 更新按钮文本
+        const muteBtn = document.getElementById(`mute-${playerId}`);
+        if (muteBtn) {
+            muteBtn.textContent = '屏蔽';
+        }
+    } else {
+        // 屏蔽玩家
+        mutedPlayers.add(playerId);
+        if (audioElement) {
+            audioElement.muted = true;
+        }
+        // 更新按钮文本
+        const muteBtn = document.getElementById(`mute-${playerId}`);
+        if (muteBtn) {
+            muteBtn.textContent = '取消屏蔽';
+        }
+    }
+}
 
 async function joinRoom() {
 
@@ -213,7 +243,23 @@ socket.on('room-users', (users) => {
     playerList.innerHTML = '';
     users.forEach(user => {
         const li = document.createElement('li');
-        li.textContent = user === currentUserId ? `${user} (你)` : user;
+        li.className = 'player-item';
+        
+        // 创建玩家名称显示
+        const nameSpan = document.createElement('span');
+        nameSpan.textContent = user === currentUserId ? `${user} (你)` : user;
+        li.appendChild(nameSpan);
+        
+        // 为其他玩家添加屏蔽按钮
+        if (user !== currentUserId) {
+            const muteButton = document.createElement('button');
+            muteButton.id = `mute-${user}`;
+            muteButton.className = 'mute-player-btn';
+            muteButton.textContent = mutedPlayers.has(user) ? '取消屏蔽' : '屏蔽';
+            muteButton.onclick = () => togglePlayerMute(user);
+            li.appendChild(muteButton);
+        }
+        
         playerList.appendChild(li);
     });
 
@@ -254,7 +300,8 @@ socket.on('player-volume', (data) => {
         const volume = data[userId];
         const audioElement = document.getElementById(`audio-${userId}`);
         if (audioElement) {
-            audioElement.volume = volume;
+            // 如果玩家被屏蔽，则设置音量为0，否则使用服务器计算的音量
+            audioElement.volume = mutedPlayers.has(userId) ? 0 : volume;
         }
     }
 });
