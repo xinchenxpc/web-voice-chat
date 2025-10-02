@@ -2,7 +2,7 @@
     "entry": "server.js",
     "name": "WebVoiceChat",
     "type": "lse-nodejs",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "author": "xinchenXPC",
     "description": "Voice chat",
     "dependencies": [
