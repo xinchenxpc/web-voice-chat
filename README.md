@@ -76,6 +76,11 @@
 
 设声音的大小默认为1，将满足关系：`1 - 玩家直线距离（格） * 衰减系数`。当玩家之间距离足够大或不在同一个维度时，声音将无法传递​
 
+## 计划
+- [ ] 实现立体声音
+- [ ] 保持玩家绑定状态，无需总是输入绑定码
+- [ ] 添加更多配置项
+
 ## 参考图片
 ![01.png](https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAALqnmiy0xLEmIfzVffr1pFkgIujyAO5AAI4FwACnJuYVS1KeoN8nuL_NgQ.png)
 ![02.png](https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAALqn2iy0yIf3jGz_0aAQqTGReU-zOreAAI5FwACnJuYVeeIPmH1pBFaNgQ.png)
