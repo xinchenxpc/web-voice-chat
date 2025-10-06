@@ -50,7 +50,7 @@ header h1 {
 #leaveBtn, #muteBtn, .mute-player-btn {
     width: 100%;
     padding: 12px;
-    background-color: #007bff;
+    background-color: #47a0ff;
     color: white;
     border: none;
     border-radius: 10px;
@@ -60,7 +60,7 @@ header h1 {
 }
 
 #leaveBtn:hover, #muteBtn:hover, .mute-player-btn:hover {
-    background-color: #0056b3;
+    background-color: #3b89dd;
 }
 
 #muteBtn.muted {
@@ -115,11 +115,11 @@ header h1 {
     width: auto;
     padding: 5px 10px;
     font-size: 14px;
-    background-color: #ffc107;
+    background-color: #ffd968;
     color: #212529;
     margin-top: 0px;
 }
 
 .mute-player-btn:hover {
-    background-color: #e0a800;
+    background-color: #ebc963;
 }

@@ -50,7 +50,7 @@ header h1 {
 #bind {
     width: 100%;
     padding: 12px;
-    background-color: #007bff;
+    background-color: #47a0ff;
     color: white;
     border: none;
     border-radius: 10px;
@@ -65,7 +65,7 @@ header h1 {
 }   
 
 #bind:hover {
-    background-color: #0056b3;
+    background-color: #3b89dd;
 }
 
 /* 主要内容区域 */
