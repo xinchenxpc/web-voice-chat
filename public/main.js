@@ -237,6 +237,12 @@ function sendAnswer(user, peerConnection) {
 }
 
 // event callbacks
+socket.on('duplicate-user', (userId) => {
+    alert('您已经在语音聊天室中，不能重复加入！');
+    // 跳转回主页
+    window.location.href = 'index.html';
+});
+
 socket.on('room-users', (users) => {
 
     // 更新玩家列表显示

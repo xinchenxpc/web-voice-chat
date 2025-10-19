@@ -175,6 +175,13 @@ io.on('connection', (socket) => {
 
     // 加入房间
     socket.on('join-room', (roomId, userId) => {
+        // 检查用户是否已经在这个房间里
+        if (rooms[roomId] && rooms[roomId].has(userId)) {
+            // 如果用户已在房间中，通知客户端并拒绝加入
+            socket.emit('duplicate-user', userId);
+            return;
+        }
+        
         socket.join(roomId);
         socket.roomId = roomId;
         socket.userId = userId;
