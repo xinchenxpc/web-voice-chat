@@ -118,6 +118,8 @@ try {
 }
 
 io.on('connection', (socket) => {
+    let sandDataIntervalId = null;
+
     debugLog(`New client connected: ${socket.id}`);
 
     // 处理绑定码验证请求
@@ -192,7 +194,7 @@ io.on('connection', (socket) => {
 
         //音量处理
         if (configFile.enableSoundAttenuation) {
-            setInterval(() => {
+            sandDataIntervalId = setInterval(() => {
                 let playerVolume = {};
                 onlinePlayer.forEach(player => {
                     // log(playerPosition);
@@ -238,6 +240,9 @@ io.on('connection', (socket) => {
 
     // 断开连接
     socket.on("disconnecting", (reason) => {
+        if (sandDataIntervalId) {
+            clearInterval(sandDataIntervalId);
+        }
         disconnect(socket);
         debugLog(`Client disconnected: ${socket.id}, reason: ${reason}`);
     });
