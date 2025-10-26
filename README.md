@@ -90,4 +90,5 @@
 
 ## 更多
 - **SSL证书**：您可能已经注意到，在访问聊天网站时，会提示SSL证书问题。在插件的`pem`目录下，有`cert.pem`（证书）和`key.pem`（私钥）文件，您可以替换其中的内容以解决该问题
-- **server.exe**：您可以在插件的`turn_server`目录下找到此程序，该程序是插件默认ICE服务器的软件，由[Pion TURN的示例程序代码](https://github.com/pion/turn/tree/master/examples/turn-server/simple)直接编译而来
+- **server.exe**：您可以在插件的`turn_server`目录下找到此程序，该程序是插件默认ICE服务器的软件，由[Pion TURN的示例程序代码](https://github.com/pion/turn/tree/master/examples/turn-server/simple)直接编译而来，启动参数请参考[Pion TURN的示例文档](https://github.com/pion/turn/blob/master/examples/README.md)
+- **远程ICE服务器** ：如果您想自己部署ICE服务器，请将`enableDefaultICEServer`设置为`false`，并修改ICE服务器的配置项。对于Windows系统，turn服务器软件可以直接复制插件中的`server.exe`文件。对于Linux系统建议使用[coturn](https://github.com/coturn/coturn)
