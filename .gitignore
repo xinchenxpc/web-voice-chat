@@ -1,0 +1,11 @@
+# Dependencies
+node_modules/
+
+# Configuration files with sensitive information
+# config.json
+
+# Archive files
+*.zip
+
+# Package lock files
+package-lock.json
