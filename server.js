@@ -41,7 +41,12 @@ const io = socketIo(server, {
     }
 });
 
-app.use(express.static(path.join(__dirname, 'public')));
+// 添加静态资源缓存策略
+app.use(express.static(path.join(__dirname, 'public'), {
+    maxAge: '1d',
+    etag: true,
+    lastModified: true
+}));
 
 const rooms = {};
 
