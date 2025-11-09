@@ -142,6 +142,7 @@ function togglePlayerMute(playerId) {
     }
 }
 
+// 加入房间
 async function joinRoom() {
 
     if (!navigator.mediaDevices.getUserMedia) {
@@ -163,6 +164,7 @@ function errorHandler(error) {
     console.log(error);
 }
 
+// 创建对等连接
 function createPeerConnection(user) {
     const peerConnection = new RTCPeerConnection(config);
 
@@ -200,6 +202,7 @@ function createPeerConnection(user) {
     return peerConnection;
 }
 
+// 发送Offer
 function sendOffer(user, peerConnection) {
     peerConnection.createOffer()
         .then(description => peerConnection.setLocalDescription(description))
@@ -218,6 +221,7 @@ function sendOffer(user, peerConnection) {
         .catch(errorHandler);
 }
 
+// 发送Answer
 function sendAnswer(user, peerConnection) {
     peerConnection.createAnswer()
         .then(description => peerConnection.setLocalDescription(description))
