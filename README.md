@@ -1,5 +1,7 @@
 # WebVoiceChat
 
+![03.png](https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEVVJxqKk-x6xOzRc9SEHGaDmf5OVfQpQACZiQAAnVdUVWFRSGCMgktFTsE.png)
+
 ## 介绍
 使用网页进行语音聊天的BDS插件，通过后端调用LSE的API实现了声音随距离的增加而衰减，无需客户端安装任何addon或软件，上手简单，包含了配置文件调整关键功能。
 
