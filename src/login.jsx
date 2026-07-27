@@ -1,8 +1,13 @@
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router";
+import { useToast } from "./components/ToastContext";
 import request from "./request";
 import "./login.css";
 
 function Login() {
+  const navigate = useNavigate(); // 获取导航函数
+  const { showToast } = useToast();
+
   // ---------- 状态 ----------
   const [playerName, setPlayerName] = useState("");
   const [bindcode, setBindcode] = useState("");
@@ -70,7 +75,7 @@ function Login() {
   // ---------- 发送验证码 ----------
   const handleSendCode = async () => {
     if (!playerName.trim()) {
-      alert("请先输入玩家名称");
+      showToast("请先输入玩家名称", "warning");
       return;
     }
     if (countdown > 0) return; // 冷却中
@@ -78,7 +83,7 @@ function Login() {
     setSending(true);
     try {
       await request.post("/api/auth/captcha", { name: playerName });
-      //alert("验证码已发送至您的绑定方式");
+      //showToast("验证码已发送至您的绑定方式");
 
       // 启动 60 秒倒计时
       setCountdown(60);
@@ -93,7 +98,7 @@ function Login() {
       }, 1000);
     } catch (error) {
       console.error("发送验证码失败", error);
-      // 错误已在拦截器中提示，这里无需重复 alert
+      // 错误已在拦截器中提示，这里无需重复 showToast
     } finally {
       setSending(false);
     }
@@ -102,11 +107,11 @@ function Login() {
   // ---------- 登录 ----------
   const handleLogin = async () => {
     if (!playerName.trim()) {
-      alert("请输入玩家名称");
+      showToast("请输入玩家名称", "warning");
       return;
     }
     if (!bindcode.trim()) {
-      alert("请输入验证码");
+      showToast("请输入验证码", "warning");
       return;
     }
 
@@ -115,13 +120,13 @@ function Login() {
         name: playerName,
         captcha: bindcode,
       });
-      // 假设后端返回 { token, name }
-      localStorage.setItem("token", data.token);
+      
       localStorage.setItem("name", data.name || playerName);
-      alert("登录成功！");
+      showToast("登录成功！", "success");
       // 跳转到首页或其他页面
-      window.location.href = "/home";
+      navigate("/home");
     } catch (error) {
+      showToast("登录失败", "error");
       console.error("登录失败", error);
       // 错误已在拦截器中处理
     }

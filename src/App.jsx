@@ -1,20 +1,19 @@
-import Login from './login'
-import { loginUser } from './longinState'
-import './App.css'
-
-function page() { 
-  if(loginUser() == null){
-    return <Login className="login"/>
-  }
-  return <Home className="home"/>
-}
+import { BrowserRouter, Routes, Route } from "react-router";
+import { ToastProvider } from "./components/ToastContext";
+import Login from "./login";
+import Home from "./home";
 
 function App() {
   return (
-    <>
-      {page()}
-    </>
-  )
+    <ToastProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/home" element={<Home />} />
+        </Routes>
+      </BrowserRouter>
+    </ToastProvider>
+  );
 }
 
-export default App
+export default App;
