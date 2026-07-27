@@ -4,9 +4,9 @@ import './App.css'
 
 function page() { 
   if(loginUser() == null){
-    return <Login />
+    return <Login className="login"/>
   }
-  return <Home />
+  return <Home className="home"/>
 }
 
 function App() {

@@ -1,22 +1,211 @@
-.container {
-    width: 50%;
-    height: 50%;
-    margin: auto;
-    padding: 10px;
-    border-width: 1px;
-    border-radius: 20px;
-    background-color: white;
-    box-shadow: 0px 8px 24px 0px rgba(0, 0, 0, 0.18);
+/* login.css */
+
+/* 全局重置 & 基础 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: #f5f7fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
 
-input {
-    width: 100%;
-    margin: 5px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    font-size: 16px;
-    box-sizing: border-box;
+/* 容器 — 卡片风格 */
+.container {
+    width: 380px;
+    max-width: 92%;
+    padding: 40px 32px 36px;
+    margin: auto;
+    border-radius: 24px;
+    background-color: #ffffff;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.02);
+    transition: box-shadow 0.3s ease;
+}
+
+.container:hover {
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.10), 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* 标题 */
+.container h2 {
+    font-size: 26px;
+    font-weight: 600;
+    color: #1a1a2e;
     text-align: center;
+    margin-bottom: 28px;
+    letter-spacing: -0.3px;
+}
+
+/* 输入框组 */
+.container > div:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* 普通输入框 */
+.container input[type="text"],
+.container input:not([type]) {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 15px;
+    font-family: inherit;
+    color: #1a1a2e;
+    background: #f7f8fc;
+    border: 1.5px solid transparent;
+    border-radius: 14px;
+    outline: none;
+    transition: all 0.25s ease;
+}
+
+.container input::placeholder {
+    color: #a8b0c5;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+}
+
+.container input:focus {
+    background: #ffffff;
+    border-color: #4f7cff;
+    box-shadow: 0 0 0 4px rgba(79, 124, 255, 0.10);
+}
+
+/* 验证码行 — 水平布局 */
+.code {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.code input {
+    flex: 1;
+    min-width: 0;
+}
+
+/* 发送验证码按钮 */
+#sendBtn {
+    flex-shrink: 0;
+    padding: 14px 18px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: inherit;
+    color: #4f7cff;
+    background: #f0f3ff;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+}
+
+#sendBtn:hover {
+    background: #e4eaff;
+    color: #3a63d6;
+}
+
+#sendBtn:active {
+    transform: scale(0.96);
+}
+
+/* 登录按钮 */
+#loginBtn {
+    width: 100%;
+    padding: 15px;
+    margin-top: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: inherit;
+    color: #ffffff;
+    background: #4f7cff;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    letter-spacing: 0.4px;
+}
+
+#loginBtn:hover {
+    background: #3a63d6;
+    box-shadow: 0 4px 16px rgba(79, 124, 255, 0.30);
+}
+
+#loginBtn:active {
+    transform: scale(0.97);
+}
+
+/* 响应式微调 */
+@media (max-width: 480px) {
+    .container {
+        padding: 32px 20px 28px;
+    }
+
+    .container h2 {
+        font-size: 22px;
+    }
+
+    #sendBtn {
+        font-size: 13px;
+        padding: 14px 14px;
+    }
+}
+
+.input-wrapper {
+    position: relative; /* 使下拉菜单相对于此定位 */
+    width: 100%;
+}
+
+/* 下拉菜单列表 */
+.suggestions-list {
+    position: absolute;
+    top: calc(100% + 6px); /* 紧贴输入框下方 */
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10), 0 2px 6px rgba(0, 0, 0, 0.04);
+    padding: 6px 0;
+    margin: 0;
+    list-style: none;
+    z-index: 100;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #f0f2f7;
+}
+
+/* 每个选项 */
+.suggestion-item {
+    padding: 5px 16px;
+    font-size: 15px;
+    color: #1a1a2e;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    border-radius: 8px;
+    margin: 2px 6px;
+}
+
+.suggestion-item:hover {
+    background: #f0f3ff;
+    color: #4f7cff;
+}
+
+/* 滚动条样式（可选，提升美观） */
+.suggestions-list::-webkit-scrollbar {
+    width: 6px;
+}
+.suggestions-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+.suggestions-list::-webkit-scrollbar-thumb {
+    background: #d0d6e4;
+    border-radius: 10px;
+}
+.suggestions-list::-webkit-scrollbar-thumb:hover {
+    background: #b0b8c8;
 }
