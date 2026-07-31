@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useToast } from "./components/ToastContext";
-import request from "./request";
+import request from "./lib/request";
 import "./login.css";
 
 function Login() {
@@ -120,7 +120,7 @@ function Login() {
         name: playerName,
         captcha: bindcode,
       });
-      
+
       localStorage.setItem("name", data.name || playerName);
       showToast("登录成功！", "success");
       // 跳转到首页或其他页面
