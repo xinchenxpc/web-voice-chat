@@ -85,6 +85,21 @@
   transform: scale(0.96);
 }
 
+.btn-mic.muted {
+  opacity: 0.5;
+  background-color: #eee;
+}
+.player-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.player-item .mic-status {
+  font-size: 14px;
+  display: inline-flex;    /* 保持行内特性，不独占一行 */
+  align-items: center;
+}
+
 /* 退出按钮（次要色） */
 .btn-logout {
   background: #f0f0f5;
