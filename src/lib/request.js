@@ -1,24 +1,16 @@
-// src/api/request.js
 import axios from 'axios';
 
+// 默认端口与后端保持一致（见 .env.development 里的 VITE_API_URL）
 const request = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8080',
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000',
   timeout: 10000,
-  withCredentials: true, // 允许跨域请求携带 Cookie
+  withCredentials: true, // 跨域请求需要携带登录 Cookie
 });
 
-
-// 响应拦截器（统一处理错误）
+// 成功时直接返回 data；401 由调用方决定是否跳回登录页
 request.interceptors.response.use(
   (response) => response.data,
-  (error) => {
-    if (error.response?.status === 401) {
-      // token 过期或无效，跳转登录页
-      // 可在此处清空本地用户状态（若有）
-      //window.location.href = '/';
-    }
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error),
 );
 
 export default request;
